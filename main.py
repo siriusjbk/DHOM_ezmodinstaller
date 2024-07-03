@@ -22,7 +22,9 @@ def main():
 
     while True:
         print("Forge를 설치하기 위해서는 Java가 필요합니다.")
-        bool_input = input("Java를 설치하시겠습니까? (y/n): ")
+        print("Java를 설치하시겠습니까? (Y/n)")
+        print("(권장) 이미 있으면 n 자바를 한번도 다운로드하지 않았으면 y")
+        bool_input = input("")
 
         if bool_input.lower() == 'y':
             java_load_f()
@@ -36,7 +38,9 @@ def main():
     print("Forge 프로세스를 로드합니다.")
 
     while True:
-        bool_input = input("1.16.5 버전 Forge 36.2.34를 다운로드하시겠습니까? (y/n): ")
+        print("1.16.5 버전 Forge 36.2.34를 다운로드하시겠습니까? (Y/n) ")
+        print("(권장)1.16.5포지가 있으면 n 1.16.5가 없는 처음 설치하는 유저면 y : ")
+        bool_input = input("")
         if bool_input.lower() == 'y':
             forge_load_f()
             break
@@ -49,14 +53,17 @@ def main():
 
     print("모드를 %appdata%의 mods 폴더로 이동시킵니다.")
     print("모드 충돌 방지를 위해 해당 작업을 권장드립니다.")
-    print("이동된 모드들은 전부 \n", os.getcwd(), "\n에 저장됩니다.")
-
+    print("현재 mods폴더의 파일을 에 저장하시겠습니까: ")
+    print("현재 적용중인 모드를 \n", os.getcwd(), "\n에 저장하시겠습니까? (Y/n)")
+    print("(권장) 현재 mods 폴더에 아무것도 없으면 무조건 n / 현재 mods 폴더에 파일이 있으면 y :")
     while True:
-        bool_input = input("모드를 이동하시겠습니까? (y/n): ")
+        bool_input = input("")
         if bool_input.lower() == 'y':
             mod_move_f()
+            mod_copy_f()
             break
         elif bool_input.lower() == 'n':
+            mod_copy_f()
             break
         else:
             print("소문자 y/n으로만 대답해주십시오.")
@@ -70,7 +77,6 @@ def java_load_f():
     except Exception as e:
         print("Java 설치 중 오류가 발생했습니다:", e)
 
-
 def forge_load_f():
     command = ['java', '-jar', os.path.abspath(r'.\forge-1.16.5-36.2.34-installer.jar')]
     try:
@@ -81,26 +87,25 @@ def forge_load_f():
     except Exception as e:
         print("알 수 없는 오류가 발생했습니다:", e)
 
-
 def mod_move_f():
-    mod_moved_path = os.path.abspath(r'minecraft_mod_folder')
+    mod_moved_path = 'minecraft_mod_folder'
     mod_path = os.path.expandvars(r"%appdata%\\.minecraft\\mods")
-    mod_main = os.path.abspath(r"mainmod")
 
     move_command = f'move /y "{mod_path}\\*.jar" "{mod_moved_path}"'
+
+    subprocess.run(move_command, shell=True, check=True)
+
+def mod_copy_f():
+    mod_path = os.path.expandvars(r"%appdata%\\.minecraft\\mods")
+    mod_main = "mainmod"
+
     copy_command = f'copy /y "{mod_main}\\*.jar" "{mod_path}"'
 
-    try:
-        subprocess.run(move_command, shell=True, check=True)
-        subprocess.run(copy_command, shell=True, check=True)
-    except subprocess.CalledProcessError as e:
-        print("모드 이동 중 오류가 발생했습니다:", e)
-    except Exception as e:
-        print("알 수 없는 오류가 발생했습니다:", e)
-
+    subprocess.run(copy_command, shell=True, check=True)
 
 if __name__ == "__main__":
     print("source code")
     print("https://github.com/siriusjbk/DHOM_ezmodloader/edit/main/README.md")
     main()
+    print("모든 작업이 완료되었습니다 엔터를 누르면 자동으로 설치기가 종료됩니다.")
     input()
