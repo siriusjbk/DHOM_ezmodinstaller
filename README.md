@@ -1,17 +1,17 @@
-# DHOM_ezmodloader
-마인크래프트 DHOM 서버 모드 파일 다운로더
+# DHOM_ezmodinstaller
+ 마인크래프트 DHOM 서버 모드 파일 다운로더
 
 
  저작권 (c) 2024 siriusjbk
  
  이 소스 코드는 MIT 라이선스에 따라 배포됩니다.
  
- DHOM_ezmodloader source code
+ DHOM_ezmodinstaller source code
  작성자: siriusjbk
  작성일: 2024-07-03
  
  설명:
- 이 프로그램은 Java와 Forge 설치를 관리하는 예제 프로그램입니다.
+ 이 프로그램은 Java와 Forge 설치를 관리하는 프로그램입니다.
  사용자는 프로그램을 통해 Java를 설치하고, 원하는 버전의 Forge를 다운로드 및 설치할 수 있습니다.
  또한, 프로그램은 Minecraft 모드 파일을 지정된 폴더로 이동시킵니다.
  이 코드는 소스 코드와 모드 파일,포지 설치 파일,자바 설치 파일만이 들어있습니다.
